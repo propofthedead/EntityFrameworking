@@ -83,6 +83,7 @@
     <Compile Include="PurchaseRequest.cs" />
     <Compile Include="PurchaseRequestLineItem.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UsersController.cs" />
     <Compile Include="Vendor.cs" />
   </ItemGroup>
   <ItemGroup>

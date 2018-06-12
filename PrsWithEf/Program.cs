@@ -8,31 +8,38 @@ using PrsEf;
 namespace PrsWithEf
 {
 	class Program
-	{private  static PrsDbConnext db = new PrsDbConnext();
+	{
+
+		void LingExamples() {
+			int[] nrbs = {7,7,14,13,1,
+						11,12,3,20,10,
+						1,10,18,17,14,
+						15,6,14,20,13};
+			var total = nrbs.Sum();
+			total = nrbs.Where(i => i >= 10).Sum();
+			total = nrbs.Where(i => i % 2 == 1).Sum();
+			var sortedNrbs = nrbs.OrderBy(i => i);
+			sortedNrbs = nrbs.OrderByDescending(i => i);
+
+			var subset = nrbs.Where(i => i % 3 == 0).ToArray();
+			var subset2 = nrbs.Where(i => i % 3 == 0).ToList();
+
+		}
+
+
+
+		private  static PrsDbConnext db = new PrsDbConnext();
 		static void Main(string[] args)
 		{
 
 			var hmmm = new PurchaseRequestLineItem {
-				ProductId= db.Products.SingleOrDefault(p => p.PartNumber=="Dot").Id,
-				PurchasRequestID= db.PurchaseRequests.SingleOrDefault(pr => pr.Description == "I wanted to mess around with alexa to engineer responsive AI").Id,
-				Quantity=3,
-				Price=3* db.Products.SingleOrDefault(p => p.PartNumber=="Dot").Price,
-			};
-			var ok = new PurchaseRequestLineItem {
-				ProductId = db.Products.SingleOrDefault(p => p.PartNumber == "AU546124").Id,
-				PurchasRequestID = db.PurchaseRequests.SingleOrDefault(pr => pr.Description == "I wanted to mess around with alexa to engineer responsive AI").Id,
-				Quantity=5,
-				Price=5 * db.Products.SingleOrDefault(p => p.PartNumber == "AU546124").Price
-			};
-			var sure = new PurchaseRequestLineItem {
-				ProductId = db.Products.SingleOrDefault(p => p.Name == "Computer").Id,
-				PurchasRequestID = db.PurchaseRequests.SingleOrDefault(pr => pr.Description == "New computer").Id,
-				Quantity = 7,
-				Price = 7 * db.Products.SingleOrDefault(p => p.Name == "Computer").Price
+				ProductId= db.Products.SingleOrDefault(p=> p.Name=="Computer").Id,
+				PurchasRequestID=db.PurchaseRequests.SingleOrDefault(pr=> pr.Description=="New computer").Id,
+				Quantity=9,
+				Price=9 * db.Products.SingleOrDefault(p=> p.Name=="Computer").Price
+
 			};
 			db.PurchaseRequestLineItems.Add(hmmm);
-			db.PurchaseRequestLineItems.Add(ok);
-			db.PurchaseRequestLineItems.Add(sure);
 			db.SaveChanges();
 		}
 	}
