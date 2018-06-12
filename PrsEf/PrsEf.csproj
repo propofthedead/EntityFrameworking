@@ -85,6 +85,7 @@
     <Compile Include="User.cs" />
     <Compile Include="UsersController.cs" />
     <Compile Include="Vendor.cs" />
+    <Compile Include="VendorController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
