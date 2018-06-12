@@ -12,20 +12,27 @@ namespace PrsWithEf
 		static void Main(string[] args)
 		{
 
-			var peachdot = new PurchaseRequest {
-				DeliveryMode = "UPS",
-				Description = "I wanted to mess around with alexa to engineer responsive AI",
-				Justification = "Yeah",
-				UserId = 1,
-				User= db.Users.Find(1)
+			var hmmm = new PurchaseRequestLineItem {
+				ProductId= db.Products.SingleOrDefault(p => p.PartNumber=="Dot").Id,
+				PurchasRequestID= db.PurchaseRequests.SingleOrDefault(pr => pr.Description == "I wanted to mess around with alexa to engineer responsive AI").Id,
+				Quantity=3,
+				Price=3* db.Products.SingleOrDefault(p => p.PartNumber=="Dot").Price,
 			};
-
-			db.PurchaseRequests.Add(peachdot);
-			db.SaveChanges();
-
-			User u1 = db.Users.SingleOrDefault(u => u.Email=="camodude5@yahoo.com");
-			u1.IsAdmin = true;
-			u1.IsReviewer = true;
+			var ok = new PurchaseRequestLineItem {
+				ProductId = db.Products.SingleOrDefault(p => p.PartNumber == "AU546124").Id,
+				PurchasRequestID = db.PurchaseRequests.SingleOrDefault(pr => pr.Description == "I wanted to mess around with alexa to engineer responsive AI").Id,
+				Quantity=5,
+				Price=5 * db.Products.SingleOrDefault(p => p.PartNumber == "AU546124").Price
+			};
+			var sure = new PurchaseRequestLineItem {
+				ProductId = db.Products.SingleOrDefault(p => p.Name == "Computer").Id,
+				PurchasRequestID = db.PurchaseRequests.SingleOrDefault(pr => pr.Description == "New computer").Id,
+				Quantity = 7,
+				Price = 7 * db.Products.SingleOrDefault(p => p.Name == "Computer").Price
+			};
+			db.PurchaseRequestLineItems.Add(hmmm);
+			db.PurchaseRequestLineItems.Add(ok);
+			db.PurchaseRequestLineItems.Add(sure);
 			db.SaveChanges();
 		}
 	}
